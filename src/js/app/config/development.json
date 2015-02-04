@@ -1,0 +1,20 @@
+{
+    "Config": {
+
+        "debug": true,
+
+        "app": {
+            "identifier": "fold-gmail-tracker-extension"
+        },
+
+        "api": {
+            "url": "https://api.sebastiaanluca.dev/"
+        },
+
+        "oauth": {
+            "client_id": "replaced by token in $root/oauth.token",
+            "client_secret": "replaced by token in $root/oauth.token"
+        }
+
+    }
+}

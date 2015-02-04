@@ -1,0 +1,12 @@
+{
+    "scripts": [
+        "bower_components/angular/angular.min.js",
+        "bower_components/angular-http-auth/src/http-auth-interceptor.js",
+        "bower_components/angular-local-storage/dist/angular-local-storage.min.js",
+        "bower_components/jquery/dist/jquery.min.js",
+        "bower_components/lodash/dist/lodash.min.js",
+        "bower_components/restangular/dist/restangular.min.js",
+        "vendors/gmail.js"
+    ],
+    "stylesheets": []
+}
