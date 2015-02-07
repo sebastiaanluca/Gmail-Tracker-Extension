@@ -1,0 +1,1 @@
+angular.module('api', ['restangular', 'api.service']);

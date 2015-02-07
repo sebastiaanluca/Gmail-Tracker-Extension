@@ -1,5 +1,5 @@
 //angular.module('app', ['config', 'errors', 'api', 'session', 'auth', 'vendors', 'directives', 'filters', 'utils'])
-angular.module('app', ['config', 'gmail'])
+angular.module('app', ['config', 'errors', 'api', 'session', 'auth', 'gmail'])
     
     // Log config
 .config(['$logProvider', 'Config', function ($logProvider, Config) {
