@@ -21,7 +21,6 @@ function generateRandomString(l) {
 
 
 $(document).ready(function () {
-    var gmail = new Gmail();
     
     console.log('Hello,', gmail.get.user_email());
     

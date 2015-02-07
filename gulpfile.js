@@ -106,6 +106,7 @@ function requireUncached(module) {
 function parseJSFolder(folder) {
     var pipeline = gulp
     .src([
+        ASSETS_SOURCE + 'js/' + folder + '/' + folder + '.js',
         ASSETS_SOURCE + 'js/' + folder + '/**.js',
         ASSETS_SOURCE + 'js/' + folder + '/**/*Module.js',
         //ASSETS_SOURCE + 'js/' + folder + '/config/ConfigModule.js',
