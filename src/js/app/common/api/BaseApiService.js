@@ -1,7 +1,7 @@
 angular.module('api')
 
-.factory('BaseAPIService', ['API',
-    function (API) {
+.factory('BaseAPIService', ['$log', 'API',
+    function ($log, API) {
         
         // Create an API Restangular endpoint service thingamagig
         var BaseService = function (endpoint) {
@@ -13,8 +13,12 @@ angular.module('api')
         // Get the real data, screw Restangular
         BaseService.prototype.clean = function (promise) {
             return promise.then(function (response) {
+                
+                $log.debug('[BaseApiService]', 'Raw response:', response);
+                
                 // Works for objects AND arrays! Yay.
                 return response.plain();
+                
             });
         };
         

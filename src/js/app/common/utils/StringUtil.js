@@ -1,3 +1,7 @@
+String.prototype.endsWith = function (suffix) {
+    return this.indexOf(suffix, this.length - suffix.length) !== -1;
+};
+
 function generateRandomString(l) {
     if (l == null) {
         l = 64;
@@ -11,4 +15,12 @@ function generateRandomString(l) {
     }
     
     return randomstring;
+}
+
+function isEmpty(s) {
+    return !s.length;
+}
+
+function isBlank(s) {
+    return isEmpty(s.trim());
 }

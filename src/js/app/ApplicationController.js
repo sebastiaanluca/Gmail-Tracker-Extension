@@ -1,52 +1,70 @@
 angular.module('app')
 
-.controller('ApplicationController', ['$scope', '$log', 'GmailService', 'TrackedEmailService',
-    function ($scope, $log, GmailService, TrackedEmailService) {
+.controller('ApplicationController', ['$scope', '$log', 'Config', 'GmailService', 'TrackedEmailService',
+    function ($scope, $log, Config, GmailService, TrackedEmailService) {
         
         $log.debug('App controller init');
         
         $log.debug('Gmail address is', GmailService.getUserMail());
         
         // Compose
-        $scope.$on('compose', function (compose, type) {
+        $scope.$on('compose', function (event, args) {
             
-            $log.debug('compose event', compose, type);
+            $log.debug('compose event', args);
             
         });
         
         // Send
-        $scope.$on('send_message', function (url, body, data, xhr) {
+        $scope.$on('send_message', function (event, args) {
             
-            $log.debug('send_message event', url, body, data, xhr);
+            // TODO: if something fails here, it won't throw an error (not a single one)
+            
+            $log.debug('[ApplicationController] send_message event, injecting pixel and creating email tracking entry');
+            
+            var msg = args.xhr.xhrParams.body_params;
+            var trackingID = generateRandomString(32);
             
             // Inject tracking pixel
-            var msg = xhr.xhrParams.body_params;
-            var id = generateRandomString(32);
-            msg.body = msg.body + '<img src="http://tracker.sebastiaanluca.dev/track/' + id + '" alt="" />';
+            msg.body = msg.body + '<img src="https://tracker.' + Config.domain + '/track/' + trackingID + '" alt="" />';
             
-            console.log('From', data.from);
-            console.log('To', data.to);
-            console.log('CC', data.cc);
-            console.log('BCC', data.bcc);
-            console.log('Subject', data.subject);
-            console.log('Message', data.body);
-            console.log('Is HTML?', data.ishtml);
-            console.log('Request read receipt?', data.readreceipt);
-            console.log('Gmail message id', data.composeid);
+            $log.debug('[ApplicationController] send_message event ', args.data);
             
-            // TODO: POST id, critical data, and metadata to API
+            var email = {
+                id: trackingID,
+                
+                from: args.data.from,
+                to: args.data.to,
+                subject: args.data.subject,
+                
+                is_html: args.data.ishtml,
+                has_read_receipt: args.data.readreceipt
+            };
             
-        });
-        
-        
-        
-        // API test call
-        TrackedEmailService.post({
-            id: 'xSHzlG6UnIi0ncrVaym3bFgn32tYFare',
-            to: 'derp@sebastiaanluca.com'
-        }).then(function (response) {
+            // Check for optional values
+            if (!isBlank(args.data.composeid)) {
+                email.gmail_msg_id = args.data.composeid;
+            }
             
-            $log.debug('API test call response: ', response);
+            if (!isBlank(args.data.cc)) {
+                email.cc = args.data.cc;
+            }
+            
+            if (!isBlank(args.data.bcc)) {
+                email.bcc = args.data.bcc;
+            }
+            
+            // Remove empty recipients
+            for (var i = 0; i < email.to.length; ++i) {
+                if (isBlank(email.to[i])) {
+                    email.to.splice(i, 1);
+                    i--;
+                }
+            }
+            
+            // Send everything to the API
+            TrackedEmailService.post(email).then(function (response) {
+                $log.debug('API test call response: ', response);
+            });
             
         });
         

@@ -3,6 +3,8 @@
 
         "debug": false,
 
+        "domain": "sebastiaanluca.com",
+
         "app": {
             "identifier": "fold-gmail-tracker-extension"
         },

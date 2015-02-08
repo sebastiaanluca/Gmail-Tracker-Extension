@@ -2,6 +2,8 @@
     "Config": {
 
         "debug": true,
+        
+        "domain": "sebastiaanluca.dev",
 
         "app": {
             "identifier": "fold-gmail-tracker-extension"

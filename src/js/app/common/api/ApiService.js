@@ -37,12 +37,15 @@ angular.module('api.service', [])
                 return true;
             });
             
+            // Not needed? Lol, so weird. Freaking Restangular.
             // Intercept and parse API response
-            RestangularConfigurator.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
-                // Return the core data
-                // Fixes Restangular nagging about getList() not returning an array, ugh
-                return data.data;
-            });
+            //            RestangularConfigurator.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
+            //                $log.debug('[API]', 'addResponseInterceptor()', data);
+            //                
+            //                // Return the core data
+            //                // Fixes Restangular nagging about getList() not returning an array, ugh
+            //                return data.data;
+            //            });
             
         });
         
