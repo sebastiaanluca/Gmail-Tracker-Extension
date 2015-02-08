@@ -16,3 +16,4 @@ src/js/app/config/generated
 node_modules/
 bower_components/
 oauth.token
+build/scripts
